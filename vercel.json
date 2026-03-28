@@ -1,13 +1,20 @@
 {
   "version": 2,
-  "name": "ai-chat",
   "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
     {
       "src": "*.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
     {
       "src": "/",
       "dest": "/landing.html"
