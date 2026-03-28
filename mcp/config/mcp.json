@@ -1,0 +1,76 @@
+{
+  "mcpServers": {
+    "vercel": {
+      "command": "node",
+      "args": ["mcp/servers/vercel-server.js"],
+      "env": {
+        "VERCEL_TOKEN": "${VERCEL_TOKEN}"
+      }
+    },
+    "github": {
+      "command": "node",
+      "args": ["mcp/servers/github-server.js"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "project": {
+      "command": "node",
+      "args": ["mcp/servers/project-server.js"]
+    }
+  },
+  "tools": {
+    "autoDeploy": {
+      "description": "Deploy AI Chat with one command",
+      "steps": [
+        {
+          "server": "vercel",
+          "tool": "auto_setup",
+          "args": {
+            "openaiKey": "${OPENAI_API_KEY}",
+            "businessName": "${BUSINESS_NAME}",
+            "domain": "${CUSTOM_DOMAIN}"
+          }
+        }
+      ]
+    },
+    "status": {
+      "description": "Get complete project status",
+      "steps": [
+        {
+          "server": "vercel",
+          "tool": "project_status"
+        }
+      ]
+    },
+    "fullSetup": {
+      "description": "Complete setup: GitHub repo + Vercel deploy + custom domain",
+      "steps": [
+        {
+          "server": "github",
+          "tool": "create_repo",
+          "args": {
+            "name": "ai-chat",
+            "private": false
+          }
+        },
+        {
+          "server": "github",
+          "tool": "push_code",
+          "args": {
+            "message": "Initial commit"
+          }
+        },
+        {
+          "server": "vercel",
+          "tool": "auto_setup",
+          "args": {
+            "openaiKey": "${OPENAI_API_KEY}",
+            "businessName": "${BUSINESS_NAME}",
+            "domain": "${CUSTOM_DOMAIN}"
+          }
+        }
+      ]
+    }
+  }
+}

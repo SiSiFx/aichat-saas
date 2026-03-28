@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: #111;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 20px 30px;
+            font-size: 20px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #888;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            color: #fff;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .nav-item.active {
+            border-right: 3px solid #667eea;
+        }
+        
+        .main {
+            margin-left: 260px;
+            padding: 40px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .upload-area .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .file-list {
+            margin-top: 16px;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .file-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-status {
+            color: #22c55e;
+            font-size: 12px;
+        }
+        
+        .code-box {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Monaco', monospace;
+            font-size: 13px;
+            color: #aaa;
+            position: relative;
+        }
+        
+        .code-box button {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .conversations {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .conversation {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .conversation:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        
+        .conversation-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .conversation-info {
+            flex: 1;
+        }
+        
+        .conversation-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .conversation-preview {
+            font-size: 14px;
+            color: #888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .conversation-time {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .settings-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+
+        .settings-label {
+            font-weight: 500;
+        }
+
+        .settings-desc {
+            font-size: 14px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        input[type="text"], textarea, select {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 14px;
+            width: 300px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 8px;
+        }
+
+        .color-option {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .color-option.selected {
+            border-color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">💬</div>
+            AI Chat
+        </div>
+        <nav>
+            <a href="#" class="nav-item active">📊 Dashboard</a>
+            <a href="#" class="nav-item">📚 Documents</a>
+            <a href="#" class="nav-item">💬 Conversations</a>
+            <a href="#" class="nav-item">⚙️ Customize</a>
+            <a href="#" class="nav-item">💻 Install</a>
+            <a href="#" class="nav-item">📈 Analytics</a>
+            <a href="#" class="nav-item">⚡ Upgrade</a>
+            <a href="#" class="nav-item">❓ Help</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div class="header">
+            <h1>Dashboard</h1>
+            <a href="#" class="btn">💻 Get Install Code</a>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Conversations</div>
+                <div class="stat-value">1,234</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">This Month</div>
+                <div class="stat-value">456</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Customer Happiness</div>
+                <div class="stat-value">98%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Money Saved</div>
+                <div class="stat-value">$890</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>📚 Teach Your AI</h2>
+                <a href="#" style="color: #667eea; text-decoration: none;">+ Upload More</a>
+            </div>
+            <div class="upload-area">
+                <div class="icon">📄</div>
+                <p><strong>Drop files here</strong> or click to browse</p>
+                <p style="font-size: 14px; margin-top: 8px;">PDF, Word, or Text files</p>
+            </div>
+            <div class="file-list">
+                <div class="file-item">
+                    <div class="file-name">
+                        <span>📄</span>
+                        <span>FAQ.pdf</span>
+                    </div>
+                    <span class="file-status">✓ Learned</span>
+                </div>
+                <div class="file-item">
+                    <div class="file-name">
+                        <span>📄</span>
+                        <span>Product_Catalog.docx</span>
+                    </div>
+                    <span class="file-status">✓ Learned</span>
+                </div>
+                <div class="file-item">
+                    <div class="file-name">
+                        <span>📄</span>
+                        <span>Pricing_2024.pdf</span>
+                    </div>
+                    <span class="file-status">✓ Learned</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>⚙️ Customize Your AI</h2>
+            </div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-label">AI Name</div>
+                    <div class="settings-desc">What customers will see</div>
+                </div>
+                <input type="text" value="Sarah from Support">
+            </div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-label">Welcome Message</div>
+                    <div class="settings-desc">First message customers see</div>
+                </div>
+                <input type="text" value="Hi there! How can I help you today?">
+            </div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-label">Brand Color</div>
+                    <div class="settings-desc">Matches your website</div>
+                </div>
+                <div class="color-picker">
+                    <div class="color-option selected" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <div class="color-option" style="background: #22c55e;"></div>
+                    <div class="color-option" style="background: #f59e0b;"></div>
+                    <div class="color-option" style="background: #ef4444;"></div>
+                    <div class="color-option" style="background: #3b82f6;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>💬 Recent Conversations</h2>
+                <a href="#" style="color: #667eea; text-decoration: none;">View All →</a>
+            </div>
+            <div class="conversations">
+                <div class="conversation">
+                    <div class="conversation-avatar">👤</div>
+                    <div class="conversation-info">
+                        <div class="conversation-name">Visitor #3829</div>
+                        <div class="conversation-preview">What's your return policy? I bought a shirt last week...</div>
+                    </div>
+                    <div class="conversation-time">2 min ago</div>
+                </div>
+                <div class="conversation">
+                    <div class="conversation-avatar">👤</div>
+                    <div class="conversation-info">
+                        <div class="conversation-name">Visitor #3828</div>
+                        <div class="conversation-preview">Do you ship to Canada? How much does it cost?</div>
+                    </div>
+                    <div class="conversation-time">15 min ago</div>
+                </div>
+                <div class="conversation">
+                    <div class="conversation-avatar">👤</div>
+                    <div class="conversation-info">
+                        <div class="conversation-name">Visitor #3827</div>
+                        <div class="conversation-preview">Thank you! That was very helpful. 😊</div>
+                    </div>
+                    <div class="conversation-time">1 hour ago</div>
+                </div>
+                <div class="conversation">
+                    <div class="conversation-avatar">👤</div>
+                    <div class="conversation-info">
+                        <div class="conversation-name">Visitor #3826</div>
+                        <div class="conversation-preview">I need to speak to a human please.</div>
+                    </div>
+                    <div class="conversation-time">2 hours ago</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>💻 Add to Your Website</h2>
+            </div>
+            <p style="color: #888; margin-bottom: 16px;">Copy this code and paste it in your website's header:</p>
+            <div class="code-box">
+                <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy', 2000);">Copy</button>
+                <code>&lt;script src="https://aichat.io/widget.js?id=abc123"&gt;&lt;/script&gt;</code>
+            </div>
+            <p style="color: #888; margin-top: 16px; font-size: 14px;">
+                💡 <strong>Need help?</strong> We can install it for you - just email us at help@aichat.io
+            </p>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "ai-chat-mcp",
+  "version": "1.0.0",
+  "description": "MCP-based management for AI Chat",
+  "scripts": {
+    "deploy": "node client/deploy-client.js deploy",
+    "status": "node client/deploy-client.js status",
+    "domain": "node client/deploy-client.js domain",
+    "server": "node servers/vercel-server.js",
+    "setup": "npm install && node client/deploy-client.js deploy"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "vercel": "^33.0.0"
+  },
+  "bin": {
+    "aichat-deploy": "client/deploy-client.js"
+  }
+}

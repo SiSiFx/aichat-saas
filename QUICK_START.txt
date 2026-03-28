@@ -1,0 +1,28 @@
+╔════════════════════════════════════════════════════════════════╗
+║                    🚀 AI CHAT - QUICK START                    ║
+╚════════════════════════════════════════════════════════════════╝
+
+EASIEST WAY (30 seconds):
+──────────────────────────
+1. npm i -g vercel
+2. vercel env add OPENAI_API_KEY  
+3. vercel --prod
+4. Done! Visit your URL
+
+OR run automated script (2 minutes):
+────────────────────────────────────
+1. ./deploy.sh
+2. Follow prompts
+3. Done! Visit http://localhost:3000
+
+Files ready:
+✅ 8 HTML pages (frontend)
+✅ 2 API functions (backend)
+✅ deploy.sh (automated setup)
+✅ vercel.json (Vercel config)
+✅ docker-compose.yml (Docker setup)
+
+Need OpenAI key? Get it free at:
+https://platform.openai.com/api-keys
+
+Questions? Read DEPLOY_NOW.md

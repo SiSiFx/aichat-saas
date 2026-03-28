@@ -1,0 +1,54 @@
+name: Deploy AI Chat
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - preview
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel
+        run: |
+          vercel --token=${{ secrets.VERCEL_TOKEN }} \
+            ${{ github.event.inputs.environment == 'production' && '--prod' || '' }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Set Environment Variables
+        run: |
+          vercel env add OPENAI_API_KEY production --token=${{ secrets.VERCEL_TOKEN }} <<< "${{ secrets.OPENAI_API_KEY }}"
+          vercel env add BUSINESS_NAME production --token=${{ secrets.VERCEL_TOKEN }} <<< "${{ secrets.BUSINESS_NAME }}"
+
+      - name: Notify Deployment
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          text: |
+            AI Chat deployed to ${{ github.event.inputs.environment || 'preview' }}!
+            URL: ${{ github.event.inputs.environment == 'production' && 'https://yourdomain.com' || 'Preview URL' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

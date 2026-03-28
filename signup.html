@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AI Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .signup-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 32px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="url"] {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        input::placeholder {
+            color: #666;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            margin-top: 12px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .divider span {
+            padding: 0 16px;
+        }
+        
+        .social-btn {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            transition: background 0.2s;
+        }
+        
+        .social-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .benefits {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .benefits h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+        
+        .benefits ul {
+            list-style: none;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .benefits li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+        
+        .benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: 700;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 32px;
+            opacity: 0.6;
+        }
+        
+        .trust-badge {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo">
+            <div class="logo-icon">💬</div>
+            AI Chat
+        </div>
+        
+        <h1>Start Your Free Trial</h1>
+        <p class="subtitle">14 days free. No credit card required.</p>
+        
+        <div class="benefits">
+            <h3>✨ Your free trial includes:</h3>
+            <ul>
+                <li>100 AI conversations</li>
+                <li>Upload up to 10 documents</li>
+                <li>Full customization</li>
+                <li>Email support</li>
+            </ul>
+        </div>
+        
+        <form>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="John Smith" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="you@yourbusiness.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="Create a password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Your Website (optional)</label>
+                <input type="url" placeholder="https://yourbusiness.com">
+            </div>
+            
+            <button type="submit" class="btn">Create My AI Assistant →</button>
+        </form>
+        
+        <div class="divider">
+            <span>or sign up with</span>
+        </div>
+        
+        <button class="social-btn">
+            <span>🔍</span> Continue with Google
+        </button>
+        
+        <button class="social-btn">
+            <span>💼</span> Continue with Microsoft
+        </button>
+        
+        <p class="login-link">
+            Already have an account? <a href="#">Log in</a>
+        </p>
+        
+        <div class="trust-badges">
+            <div class="trust-badge">🔒 SSL Secured</div>
+            <div class="trust-badge">✓ No credit card</div>
+            <div class="trust-badge">✓ Cancel anytime</div>
+        </div>
+    </div>
+</body>
+</html>

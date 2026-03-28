@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "name": "ai-chat",
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1.js"
+    },
+    {
+      "src": "/",
+      "dest": "/landing.html"
+    },
+    {
+      "src": "/signup",
+      "dest": "/signup.html"
+    },
+    {
+      "src": "/onboarding",
+      "dest": "/onboarding.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "/pricing",
+      "dest": "/pricing.html"
+    },
+    {
+      "src": "/integrations",
+      "dest": "/integrations.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1.html"
+    }
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai-api-key"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "vercel": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["mcp/servers/vercel-server.js"],
+      "env": {
+        "VERCEL_ORG_ID": "sisis-projects-71850f97"
+      }
+    }
+  }
+}

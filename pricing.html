@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - AI Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: #111;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 40px;
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 40px 0;
+        }
+        
+        .toggle span {
+            color: #888;
+        }
+        
+        .toggle span.active {
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .toggle-switch {
+            width: 56px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+        
+        .pricing-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 32px;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            transform: scale(1.05);
+        }
+        
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 24px 0 8px;
+        }
+        
+        .price span {
+            font-size: 16px;
+            color: #888;
+            font-weight: 400;
+        }
+        
+        .description {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: #22c55e;
+            font-weight: 700;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .faq {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 48px;
+        }
+        
+        .faq-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .faq-item h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .faq-item p {
+            color: #888;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 80px;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 20px;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            color: #888;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-card.featured { transform: none; }
+        }
+
+        @media (max-width: 640px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">
+                <div class="logo-icon">💬</div>
+                AI Chat
+            </a>
+            <div class="nav-links">
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Sign In</a>
+                <a href="#" style="color: #fff;">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Simple Pricing</h1>
+            <p>No hidden fees. No setup costs. Cancel anytime.</p>
+            
+            <div class="toggle">
+                <span class="active">Monthly</span>
+                <div class="toggle-switch"></div>
+                <span>Yearly <span style="color: #22c55e;">(Save 20%)</span></span>
+            </div>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price">$0<span>/month</span></div>
+                <p class="description">Try it out</p>
+                <ul class="features">
+                    <li>100 conversations/month</li>
+                    <li>1 AI assistant</li>
+                    <li>Basic customization</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="#" class="btn btn-outline">Get Started</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <span class="badge">MOST POPULAR</span>
+                <h3>Starter</h3>
+                <div class="price">$19<span>/month</span></div>
+                <p class="description">Best for small businesses</p>
+                <ul class="features">
+                    <li>1,000 conversations/month</li>
+                    <li>1 AI assistant</li>
+                    <li>Full customization</li>
+                    <li>Priority support</li>
+                    <li>Analytics dashboard</li>
+                </ul>
+                <a href="#" class="btn">Start Free Trial</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Business</h3>
+                <div class="price">$49<span>/month</span></div>
+                <p class="description">For growing teams</p>
+                <ul class="features">
+                    <li>5,000 conversations/month</li>
+                    <li>3 AI assistants</li>
+                    <li>Advanced analytics</li>
+                    <li>Phone support</li>
+                    <li>API access</li>
+                </ul>
+                <a href="#" class="btn btn-outline">Start Free Trial</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Pro</h3>
+                <div class="price">$99<span>/month</span></div>
+                <p class="description">For power users</p>
+                <ul class="features">
+                    <li>Unlimited conversations</li>
+                    <li>Unlimited assistants</li>
+                    <li>White-label option</li>
+                    <li>Dedicated support</li>
+                    <li>Custom integrations</li>
+                </ul>
+                <a href="#" class="btn btn-outline">Contact Sales</a>
+            </div>
+        </div>
+        
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3>What's a "conversation"?</h3>
+                <p>One conversation = one visitor chatting with your AI. If the same person comes back tomorrow, that's a new conversation. Simple!</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Can I change plans anytime?</h3>
+                <p>Yes! Upgrade or downgrade anytime. Changes take effect immediately.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What happens if I go over my limit?</h3>
+                <p>We never cut you off. We'll notify you and you can upgrade or pay for additional conversations at $0.01 each.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Do I need a credit card for the free trial?</h3>
+                <p>Nope! Start free, no credit card required. Only pay when you're ready.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What's your refund policy?</h3>
+                <p>30-day money-back guarantee. If you're not happy, we'll refund you. No questions asked.</p>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2>Still have questions?</h2>
+            <p>Chat with our team - we're here to help!</p>
+            <a href="#" class="btn" style="max-width: 300px; margin: 0 auto;">Contact Us</a>
+        </div>
+    </div>
+</body>
+</html>

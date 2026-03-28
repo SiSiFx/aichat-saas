@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install AI Chat - Integration Guides</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: #111;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 40px;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 60px;
+            font-size: 18px;
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        
+        .platform-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .platform-card:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateY(-4px);
+        }
+        
+        .platform-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+        }
+        
+        .platform-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .platform-card p {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .platform-card .time {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 12px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .install-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .install-box h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .code-box {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .code-box button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .code-box code {
+            font-family: 'Monaco', monospace;
+            font-size: 14px;
+            color: #aaa;
+            word-break: break-all;
+        }
+        
+        .help-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .help-section h3 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .help-options {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .help-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px 32px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+        
+        .help-card:hover {
+            border-color: #667eea;
+        }
+        
+        .help-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .help-card h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .help-card p {
+            font-size: 14px;
+            color: #888;
+        }
+
+        @media (max-width: 1024px) {
+            .platforms-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .platforms-grid { grid-template-columns: 1fr; }
+            .container { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-icon">💬</div>
+            <h1>AI Chat - Installation Guide</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>How do you want to install AI Chat?</h2>
+        <p class="subtitle">Choose your website platform for step-by-step instructions</p>
+        
+        <div class="platforms-grid">
+            <a href="#" class="platform-card">
+                <div class="platform-icon">🌐</div>
+                <h3>Any Website</h3>
+                <p>Copy & paste code</p>
+                <span class="time">⏱️ 2 minutes</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">📄</div>
+                <h3>WordPress</h3>
+                <p>Plugin installation</p>
+                <span class="time">⏱️ 1 minute</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">🛒</div>
+                <h3>Shopify</h3>
+                <p>App store install</p>
+                <span class="time">⏱️ 1 minute</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">🎨</div>
+                <h3>Wix</h3>
+                <p>Embed code</p>
+                <span class="time">⏱️ 2 minutes</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">⚡</div>
+                <h3>Squarespace</h3>
+                <p>Code injection</p>
+                <span class="time">⏱️ 2 minutes</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">📱</div>
+                <h3>Webflow</h3>
+                <p>Custom code</p>
+                <span class="time">⏱️ 2 minutes</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">🚀</div>
+                <h3>React/Next.js</h3>
+                <p>NPM package</p>
+                <span class="time">⏱️ 5 minutes</span>
+            </a>
+            
+            <a href="#" class="platform-card">
+                <div class="platform-icon">💬</div>
+                <h3>Share Link</h3>
+                <p>No website needed</p>
+                <span class="time">⏱️ Instant</span>
+            </a>
+        </div>
+        
+        <div class="install-box">
+            <h3>🚀 Quick Install (Any Website)</h3>
+            <p style="color: #888; margin-bottom: 20px;">Copy this code and paste it before the closing &lt;/body&gt; tag</p>
+            
+            <div class="code-box">
+                <button onclick="copyCode(this)">Copy</button>
+                <code>&lt;script src="https://aichat.io/widget.js?id=YOUR_ID" async&gt;&lt;/script&gt;</code>
+            </div>
+            
+            <p style="color: #888; font-size: 14px;">
+                That's it! The chat widget will appear on your site automatically.
+            </p>
+        </div>
+        
+        <div class="help-section">
+            <h3>Need help?</h3>
+            <div class="help-options">
+                <a href="#" class="help-card">
+                    <div class="icon">📹</div>
+                    <h4>Video Tutorial</h4>
+                    <p>Watch step-by-step</p>
+                </a>
+                <a href="#" class="help-card">
+                    <div class="icon">💬</div>
+                    <h4>Live Chat</h4>
+                    <p>Talk to our team</p>
+                </a>
+                <a href="#" class="help-card">
+                    <div class="icon">🛠️</div>
+                    <h4>We Install It</h4>
+                    <p>Free installation</p>
+                </a>
+                <a href="#" class="help-card">
+                    <div class="icon">📧</div>
+                    <h4>Email Us</h4>
+                    <p>help@aichat.io</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(btn) {
+            navigator.clipboard.writeText('<script src="https://aichat.io/widget.js?id=YOUR_ID" async><\/script>');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+    </script>
+</body>
+</html>
