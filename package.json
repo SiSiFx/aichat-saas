@@ -1,7 +1,7 @@
 {
-  "name": "ai-chat",
+  "name": "aio-starter-pack",
   "version": "1.0.0",
-  "description": "AI Chat - No-code AI assistant for your website",
+  "description": "AIO Starter Pack - Complete AI toolkit for your business",
   "scripts": {
     "dev": "npx serve .",
     "build": "echo 'Static site - no build needed'",
